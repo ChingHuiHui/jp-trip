@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Japan Trip ♡ A Little Diary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --peach-50: #fff5f7;
+    --peach-100: #ffe8ee;
+    --peach-200: #ffd1dc;
+    --peach-300: #ffb8c8;
+    --peach-400: #ff9eb5;
+    --peach-500: #ff85a2;
+    --peach-600: #f06a8c;
+    --peach-700: #d04a6c;
+    --cream: #fffaf6;
+    --paper: #fffefb;
+    --ink: #4a2c3a;
+    --ink-soft: #6b4555;
+    --shadow-soft: 0 4px 20px rgba(255, 133, 162, 0.15);
+    --shadow-card: 0 8px 30px rgba(208, 74, 108, 0.12);
+    --shadow-page: 0 20px 60px rgba(208, 74, 108, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    font-family: 'Quicksand', 'Fraunces', serif;
+    background:
+      radial-gradient(circle at 15% 20%, #ffe8ee 0%, transparent 45%),
+      radial-gradient(circle at 85% 70%, #ffd1dc 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, #fff5f7 0%, transparent 60%),
+      var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== Floating decorations ===== */
+  .floating-shape { position: fixed; pointer-events: none; z-index: 0; opacity: 0.35; }
+  .shape-1 { top: 6%; right: 5%; animation: float 8s ease-in-out infinite; }
+  .shape-2 { top: 55%; left: 3%; animation: float 10s ease-in-out infinite 1s; }
+  .shape-3 { bottom: 8%; right: 8%; animation: float 9s ease-in-out infinite 2s; }
+  .shape-4 { top: 30%; left: 88%; animation: float 11s ease-in-out infinite 3s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(8deg); }
+  }
+
+  /* ===== Album container ===== */
+  .album-container {
+    position: relative;
+    width: 100%;
+    max-width: 880px;
+    height: 100vh;
+    max-height: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1;
+  }
+
+  /* ===== Page stack ===== */
+  .page-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: 640px;
+  }
+
+  .page {
+    position: absolute;
+    inset: 0;
+    background: var(--paper);
+    border-radius: 32px;
+    box-shadow: var(--shadow-page);
+    border: 1px solid rgba(255, 184, 200, 0.4);
+    padding: 44px 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px) scale(0.96);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--peach-300) transparent;
+  }
+
+  .page::-webkit-scrollbar { width: 6px; }
+  .page::-webkit-scrollbar-thumb { background: var(--peach-300); border-radius: 3px; }
+  .page::-webkit-scrollbar-track { background: transparent; }
+
+  .page.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+  .page.exit-left {
+    opacity: 0;
+    transform: translateX(-60px) scale(0.96);
+  }
+
+  /* Decorative tape on each page */
+  .page::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 80px;
+    height: 20px;
+    background: rgba(255, 209, 220, 0.7);
+    backdrop-filter: blur(2px);
+    z-index: 5;
+    border-radius: 2px;
+  }
+
+  /* ===== Page number badge ===== */
+  .page-number {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    color: var(--peach-500);
+    font-weight: 600;
+    z-index: 5;
+  }
+
+  /* ===== Cover page (first page) ===== */
+  .cover-page-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .cover-sticker {
+    display: inline-block;
+    background: var(--peach-500); color: white;
+    padding: 6px 18px; border-radius: 100px;
+    font-family: 'Caveat', cursive; font-size: 20px; font-weight: 600;
+    transform: rotate(-4deg); margin-bottom: 28px;
+    box-shadow: 0 4px 0 var(--peach-700); letter-spacing: 1px;
+  }
+
+  .cover-page-content h1 {
+    font-family: 'Fraunces', serif; font-weight: 400; font-style: italic;
+    font-size: clamp(48px, 8vw, 76px); color: var(--ink);
+    line-height: 1.05; margin-bottom: 16px; letter-spacing: -0.02em;
+  }
+  .cover-page-content h1 .accent { color: var(--peach-600); font-weight: 500; }
+
+  .cover-page-content .subtitle {
+    font-family: 'Caveat', cursive; font-size: 26px; font-weight: 600;
+    color: var(--ink-soft); margin-bottom: 24px;
+  }
+
+  .cover-page-content .hearts {
+    font-size: 26px; color: var(--peach-400);
+    letter-spacing: 8px; margin-bottom: 32px;
+  }
+
+  .cover-page-content .date-stamp {
+    display: inline-block;
+    border: 2px dashed var(--peach-300); padding: 10px 24px;
+    border-radius: 100px; font-family: 'Caveat', cursive;
+    font-size: 20px; color: var(--peach-600);
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  /* ===== Intro letter ===== */
+  .letter-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+  }
+  .letter-content .greeting {
+    font-family: 'Caveat', cursive; font-size: 36px;
+    color: var(--peach-600); margin-bottom: 24px;
+  }
+  .letter-content p {
+    font-size: 17px; color: var(--ink-soft);
+    line-height: 1.9; margin-bottom: 16px;
+  }
+  .letter-content .signature {
+    font-family: 'Caveat', cursive; font-size: 28px;
+    color: var(--peach-600); text-align: right; margin-top: 28px;
+  }
+
+  /* ===== Chapter header inside page ===== */
+  .chapter-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed var(--peach-200);
+  }
+  .chapter-number {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 48px; font-weight: 300; color: var(--peach-300); line-height: 1;
+  }
+  .chapter-title {
+    font-family: 'Quicksand', sans-serif; font-size: 22px; font-weight: 700;
+    color: var(--ink); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .chapter-emoji { font-size: 22px; }
+  .chapter-subtitle {
+    font-family: 'Caveat', cursive; font-size: 20px;
+    color: var(--peach-500); font-weight: 600;
+  }
+
+  /* ===== Photo frame ===== */
+  .photo-frame {
+    background: linear-gradient(135deg, #fff5f7, #ffe8ee);
+    border-radius: 20px;
+    aspect-ratio: 4 / 3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: var(--peach-400);
+    border: 2px dashed var(--peach-300);
+    position: relative; overflow: hidden;
+  }
+  .photo-frame .photo-icon { font-size: 36px; margin-bottom: 6px; opacity: 0.6; }
+  .photo-frame .photo-label {
+    font-family: 'Caveat', cursive; font-size: 17px;
+    font-weight: 600; opacity: 0.75; text-align: center; padding: 0 10px;
+  }
+  .photo-frame::before, .photo-frame::after {
+    content: ''; position: absolute;
+    width: 48px; height: 14px;
+    background: rgba(255, 209, 220, 0.7);
+    z-index: 2;
+  }
+  .photo-frame::before { top: -6px; left: 16px; transform: rotate(-8deg); }
+  .photo-frame::after { top: -6px; right: 16px; transform: rotate(6deg); }
+
+  .photo-portrait { aspect-ratio: 3 / 4; }
+  .photo-wide { aspect-ratio: 16 / 9; }
+
+  /* Photo frame with real image */
+  .photo-frame.filled {
+    border: 1px solid rgba(255, 184, 200, 0.5);
+    background: var(--peach-50);
+    padding: 0;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
+  }
+
+  /* Friends chapter: stacked 2-photo column */
+  .friend-photo-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Fuji chapter: 2x2 grid with wide aspect to fit page */
+  .fuji-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .fuji-grid .photo-frame { aspect-ratio: 16 / 10; }
+  .fuji-grid .photo-frame::before,
+  .fuji-grid .photo-frame::after { display: none; }
+
+  /* Flying chapter layout: big hero + side text + thumb row */
+  .layout-flying {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .flying-hero {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+  }
+  .flying-thumbs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .flying-thumbs .photo-frame { aspect-ratio: 1 / 1; }
+  .flying-thumbs .photo-frame::before,
+  .flying-thumbs .photo-frame::after { display: none; }
+
+  /* ===== Layouts ===== */
+  .layout-text-photo, .layout-photo-text {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px; align-items: center;
+  }
+  .layout-two-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .layout-three-photos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  /* ===== Text content ===== */
+  .text-content h3 {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; font-weight: 500;
+    color: var(--peach-600); margin-bottom: 12px;
+  }
+  .text-content p {
+    font-size: 15px; color: var(--ink-soft);
+    line-height: 1.8; margin-bottom: 10px;
+  }
+  .text-content .highlight {
+    background: linear-gradient(180deg, transparent 60%, var(--peach-200) 60%);
+    padding: 0 4px; font-weight: 600; color: var(--ink);
+  }
+
+  /* ===== Note bubble ===== */
+  .note-bubble {
+    background: var(--peach-100); border-radius: 18px;
+    padding: 14px 20px; margin-top: 14px;
+    font-family: 'Caveat', cursive; font-size: 19px;
+    color: var(--peach-700); font-weight: 600;
+    position: relative; line-height: 1.4;
+  }
+  .note-bubble::before {
+    content: ''; position: absolute; bottom: -7px; left: 26px;
+    width: 16px; height: 16px;
+    background: var(--peach-100); transform: rotate(45deg);
+  }
+
+  /* ===== Sticker tags ===== */
+  .sticker-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .sticker {
+    background: white; border: 2px solid var(--peach-300);
+    color: var(--peach-600); padding: 4px 12px;
+    border-radius: 100px; font-size: 13px; font-weight: 600;
+    font-family: 'Quicksand', sans-serif;
+  }
+  .sticker.filled { background: var(--peach-400); color: white; border-color: var(--peach-400); }
+
+  /* ===== Translation note ===== */
+  .translation-note {
+    display: inline-block; background: rgba(255, 232, 238, 0.7);
+    border-radius: 6px; padding: 1px 7px;
+    font-size: 12px; color: var(--peach-700);
+    font-style: italic; margin: 0 2px;
+  }
+
+  /* ===== Ticket ===== */
+  .ticket {
+    background: var(--paper); border-radius: 20px;
+    padding: 22px 28px; margin-top: 16px;
+    border: 2px dashed var(--peach-400); position: relative;
+    box-shadow: 0 4px 16px rgba(208, 74, 108, 0.08);
+  }
+  .ticket::before, .ticket::after {
+    content: ''; position: absolute;
+    width: 18px; height: 18px;
+    background: var(--paper); border-radius: 50%;
+    top: 50%; transform: translateY(-50%);
+    border: 2px dashed var(--peach-400);
+  }
+  .ticket::before { left: -9px; clip-path: inset(0 0 0 50%); }
+  .ticket::after { right: -9px; clip-path: inset(0 50% 0 0); }
+  .ticket-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 12px; border-bottom: 1px dashed var(--peach-300); margin-bottom: 14px;
+  }
+  .ticket-title {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 20px; color: var(--peach-600);
+  }
+  .ticket-stamp {
+    font-family: 'Caveat', cursive; font-size: 18px;
+    color: var(--peach-500); border: 2px solid var(--peach-400);
+    padding: 3px 12px; border-radius: 6px; transform: rotate(-6deg);
+  }
+
+  /* ===== Closing page ===== */
+  .closing-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .closing-content .thank-you {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: clamp(38px, 6vw, 56px); color: var(--peach-600);
+    margin-bottom: 16px; line-height: 1.1;
+  }
+  .closing-content .heart-line {
+    font-size: 24px; color: var(--peach-400);
+    letter-spacing: 12px; margin: 20px 0;
+  }
+  .closing-content .closing-note {
+    font-family: 'Quicksand', sans-serif; font-size: 16px;
+    color: var(--ink-soft); line-height: 1.9;
+    max-width: 460px; margin: 0 auto 28px;
+  }
+
+  /* ===== Navigation ===== */
+  .nav-bar {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    background: white;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--peach-600);
+    transition: all 0.3s ease;
+    font-family: 'Caveat', cursive;
+  }
+  .nav-btn:hover:not(:disabled) {
+    background: var(--peach-500);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(208, 74, 108, 0.3);
+  }
+  .nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .page-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 18px;
+    background: white;
+    border-radius: 100px;
+    box-shadow: var(--shadow-soft);
+  }
+  .page-indicator .current {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 22px; color: var(--peach-600); font-weight: 500;
+  }
+  .page-indicator .divider {
+    color: var(--peach-300); font-size: 18px;
+  }
+  .page-indicator .total {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 14px; color: var(--ink-soft);
+  }
+
+  /* ===== Dots indicator ===== */
+  .dots-indicator {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 400px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--peach-200);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .dot:hover { background: var(--peach-400); transform: scale(1.3); }
+  .dot.active {
+    background: var(--peach-500);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* ===== Swipe hint ===== */
+  .swipe-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: var(--peach-500);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 100;
+  }
+  .swipe-hint.show { opacity: 0.7; }
+
+  /* ===== Mobile ===== */
+  @media (max-width: 720px) {
+    .album-container { padding: 12px; }
+    .page-stack { max-height: none; height: calc(100vh - 130px); }
+    .page { padding: 32px 24px 28px; border-radius: 24px; }
+    .chapter-number { font-size: 36px; }
+    .chapter-title { font-size: 18px; }
+    .chapter-subtitle { font-size: 17px; }
+    .layout-text-photo, .layout-photo-text {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .layout-three-photos { grid-template-columns: 1fr 1fr; }
+    .layout-flying { grid-template-columns: 1fr; gap: 16px; }
+    .flying-hero { aspect-ratio: 4 / 5; max-height: 360px; }
+    .text-content h3 { font-size: 19px; }
+    .text-content p { font-size: 14.5px; }
+    .nav-btn { width: 44px; height: 44px; font-size: 18px; }
+    .cover-page-content h1 { font-size: 44px; }
+  }
+
+  @media (max-height: 700px) and (min-width: 720px) {
+    .page { padding: 32px 40px; }
+    .chapter-header { margin-bottom: 16px; padding-bottom: 14px; }
+    .chapter-number { font-size: 40px; }
+    .photo-frame .photo-icon { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating decorations -->
+<svg class="floating-shape shape-1" width="70" height="70" viewBox="0 0 80 80">
+  <circle cx="40" cy="40" r="35" fill="none" stroke="#ffb8c8" stroke-width="2" stroke-dasharray="4 6"/>
+  <text x="40" y="48" text-anchor="middle" font-size="24" fill="#ff85a2">♡</text>
+</svg>
+<svg class="floating-shape shape-2" width="50" height="50" viewBox="0 0 60 60">
+  <path d="M30 8 C18 8, 12 20, 30 38 C48 20, 42 8, 30 8 Z" fill="#ffd1dc" opacity="0.7"/>
+</svg>
+<svg class="floating-shape shape-3" width="60" height="60" viewBox="0 0 70 70">
+  <g fill="#ffb8c8">
+    <circle cx="35" cy="20" r="8"/>
+    <circle cx="20" cy="35" r="8"/>
+    <circle cx="50" cy="35" r="8"/>
+    <circle cx="35" cy="50" r="8"/>
+    <circle cx="35" cy="35" r="6" fill="#ff85a2"/>
+  </g>
+</svg>
+<svg class="floating-shape shape-4" width="55" height="55" viewBox="0 0 60 60">
+  <g fill="#ffb8c8" opacity="0.7">
+    <circle cx="20" cy="20" r="6"/>
+    <circle cx="40" cy="25" r="5"/>
+    <circle cx="25" cy="40" r="7"/>
+    <circle cx="42" cy="42" r="4"/>
+  </g>
+</svg>
+
+<div class="album-container">
+
+  <div class="page-stack" id="pageStack">
+
+    <!-- Page 1: COVER -->
+    <div class="page active" data-page="1">
+      <span class="page-number">cover</span>
+      <div class="cover-page-content">
+        <div class="cover-sticker">♡ Travel Diary ♡</div>
+        <h1>My <span class="accent">Japan</span><br>Adventure</h1>
+        <p class="subtitle">a little story to share ~</p>
+        <div class="hearts">♡ ✿ ♡ ✿ ♡</div>
+        <div class="date-stamp">✈ for my teacher, with love</div>
+      </div>
+    </div>
+
+    <!-- Page 2: INTRO LETTER -->
+    <div class="page" data-page="2">
+      <span class="page-number">page 1</span>
+      <div class="letter-content">
+        <p class="greeting">Hi teacher ♡</p>
+        <p>I wanted to share my recent trip to Japan with you!</p>
+        <p>This one was a little different — I started off traveling alone, then met up with friends, went to a concert, Disney, and even a lake town. Every day had something new.</p>
+        <p>I put it all together as a little photo diary, so you can see what it was like. Hope you enjoy reading it ☺</p>
+        <p class="signature">with love,<br>me ♡</p>
+      </div>
+    </div>
+
+    <!-- Page 3: Chapter 1 - Flight -->
+    <div class="page" data-page="3">
+      <span class="page-number">page 2</span>
+      <div class="chapter-header">
+        <div class="chapter-number">01</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">✈️</span>Flying solo to Japan</div>
+          <div class="chapter-subtitle">from airport to hotel ~</div>
+        </div>
+      </div>
+      <div class="layout-flying">
+        <div class="photo-frame filled flying-hero">
+          <img src="flying-3.png" alt="window view from the plane" loading="lazy">
+        </div>
+        <div>
+          <div class="text-content">
+            <h3>I really don't love flying</h3>
+            <p>To be honest, <span class="highlight">I'm not a fan of flying at all</span>. Take-off and landing always make me so nervous. ><</p>
+            <p>So I prepared a bunch of movies in advance and watched them the whole flight to distract myself from thinking about the plane shaking.</p>
+            <div class="note-bubble">the moment I landed: I did it !!</div>
+          </div>
+          <div class="flying-thumbs">
+            <div class="photo-frame filled">
+              <img src="flying-1.png" alt="" loading="lazy">
+            </div>
+            <div class="photo-frame filled">
+              <img src="flying-2.jpeg" alt="" loading="lazy">
+            </div>
+            <div class="photo-frame filled">
+              <img src="flying-4.png" alt="" loading="lazy">
+            </div>
+          </div>
+          <div class="sticker-row">
+            <span class="sticker filled">solo trip</span>
+            <span class="sticker">in-flight 🎬</span>
+            <span class="sticker">nervous me</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 4: Chapter 2 - Wandering -->
+    <div class="page" data-page="4">
+      <span class="page-number">page 3</span>
+      <div class="chapter-header">
+        <div class="chapter-number">02</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🌸</span>Wandering around</div>
+          <div class="chapter-subtitle">just walking, no plan ~</div>
+        </div>
+      </div>
+      <div class="layout-three-photos">
+        <div class="photo-frame filled"><img src="wandering-1.png" alt="street view" loading="lazy"></div>
+        <div class="photo-frame filled"><img src="wandering-2.png" alt="little shop" loading="lazy"></div>
+        <div class="photo-frame filled"><img src="wandering-3.png" alt="sky" loading="lazy"></div>
+      </div>
+      <div class="text-content" style="margin-top: 22px;">
+        <h3>A perfect day for a walk</h3>
+        <p>The weather on my first day was surprisingly lovely — <span class="highlight">warm sunshine and a gentle breeze</span>. I didn't have any plans, so I just walked around and popped into any shop that caught my eye.</p>
+        <p>Sometimes the best part of traveling is having no plan at all ☺</p>
+      </div>
+    </div>
+
+    <!-- Page 5: Chapter 3 - Friends -->
+    <div class="page" data-page="5">
+      <span class="page-number">page 4</span>
+      <div class="chapter-header">
+        <div class="chapter-number">03</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">👯</span>Meeting up with friends</div>
+          <div class="chapter-subtitle">slowly, one by one ~</div>
+        </div>
+      </div>
+      <div class="layout-photo-text">
+        <div class="friend-photo-stack">
+          <div class="photo-frame filled" style="aspect-ratio: 5 / 4;">
+            <img src="friend-1.png" alt="meeting up with friends" loading="lazy" style="object-position: center 25%;">
+          </div>
+          <div class="photo-frame filled" style="aspect-ratio: 16 / 9;">
+            <img src="firend-2.jpeg" alt="hanging out together" loading="lazy">
+          </div>
+        </div>
+        <div class="text-content">
+          <h3>Everyone arrived separately</h3>
+          <p>My friends and I didn't fly out together — instead, <span class="highlight">we arrived one by one</span>.</p>
+          <p>Some came earlier, some came later. At airports, train stations, hotel lobbies, we kept saying "Oh, you're here too!" to each other.</p>
+          <p>As we grow up, traveling with friends gets harder — everyone has their own schedule. So when we do manage to gather, it feels extra precious ♡</p>
+          <div class="note-bubble">this is what grown-up travel looks like ~</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 6: Chapter 4 - TWICE Concert -->
+    <div class="page" data-page="6">
+      <span class="page-number">page 5</span>
+      <div class="chapter-header">
+        <div class="chapter-number">04</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">💖</span>TWICE concert!</div>
+          <div class="chapter-subtitle">the main event ✦</div>
+        </div>
+      </div>
+      <div class="layout-two-photos">
+        <div class="photo-frame filled" style="aspect-ratio: 5 / 3;">
+          <img src="concert-1.png" alt="National Stadium with TWICE lightstick" loading="lazy" style="object-position: center 30%;">
+        </div>
+        <div class="photo-frame filled" style="aspect-ratio: 5 / 3;">
+          <img src="concert-2.png" alt="me at the stadium" loading="lazy" style="object-position: center 60%;">
+        </div>
+      </div>
+      <div class="text-content" style="margin-top: 16px;">
+        <h3>The reason I came to Japan ♡</h3>
+        <p>At <span class="highlight">Japan National Stadium</span> — the 80,000-seat Tokyo Olympics venue — TWICE became the <span class="highlight">first K-pop group</span> ever to perform there! With a <span class="highlight">360° stage</span> and moving carts, fans on every side got to see them up close.</p>
+        <p>The <span class="highlight">"One Spark"</span> fireworks were so loud they actually paused the baseball game next door 😂 <span class="highlight">10+ year fan</span> here — politics kept them out of Taiwan for ages, so every flight to see them was worth it ♡</p>
+      </div>
+      <div class="sticker-row">
+        <span class="sticker filled">National Stadium</span>
+        <span class="sticker filled">first K-pop</span>
+        <span class="sticker">One Spark 🎆</span>
+      </div>
+    </div>
+
+    <!-- Page 7: Chapter 5 - Disney -->
+    <div class="page" data-page="7">
+      <span class="page-number">page 6</span>
+      <div class="chapter-header">
+        <div class="chapter-number">05</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🏰</span>Tokyo Disney</div>
+          <div class="chapter-subtitle">rainy magical day ☂</div>
+        </div>
+      </div>
+      <div class="layout-text-photo">
+        <div class="text-content">
+          <h3>Pouring before it even started</h3>
+          <p>It started <span class="highlight">pouring rain</span> first thing in the morning ☔ So we made an emergency stop at a convenience store to grab some rain ponchos.</p>
+          <p>Soaked from the start, but our <span class="highlight">excitement wasn't dampened</span> one bit — we walked into the park ready for magic anyway ✨</p>
+          <div class="note-bubble">a bit of a mess before it even began ♡</div>
+        </div>
+        <div class="photo-frame filled" style="aspect-ratio: 1 / 1;">
+          <img src="disney-rain.png" alt="rain poncho squad" loading="lazy" style="object-position: center 30%;">
+        </div>
+      </div>
+      <div class="sticker-row">
+        <span class="sticker filled">Tokyo Disney</span>
+        <span class="sticker">pouring rain ☔</span>
+        <span class="sticker">rain poncho</span>
+      </div>
+    </div>
+
+    <!-- Page 8: Disney continued - food rides shows -->
+    <div class="page" data-page="8">
+      <span class="page-number">page 7</span>
+      <div class="chapter-header">
+        <div class="chapter-number">05</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🎠</span>Tokyo Disney, cont.</div>
+          <div class="chapter-subtitle">rides, shows & characters ~</div>
+        </div>
+      </div>
+      <div class="text-content" style="margin-bottom: 16px;">
+        <h3>So many rides... and characters ♡</h3>
+        <p>Despite the rain, we still braved <span class="highlight">Journey to the Center of the Earth</span>, Raging Spirits, Rapunzel's Lantern Festival, Tower of Terror... and caught the <span class="highlight">"Dance the Globe!"</span> show with characters dancing from all over.</p>
+        <p>The best part? <span class="highlight">Meeting so many characters in person</span> — Mickey, Donald, Goofy, Jasmine, Aladdin... I'd never had that experience at Disney before, and it became my favorite memory at park ♡</p>
+      </div>
+      <div class="layout-three-photos">
+        <div class="photo-frame filled"><img src="disney-1.png" alt="Mickey & friends" loading="lazy" style="object-position: center bottom;"></div>
+        <div class="photo-frame filled"><img src="disney-2.png" alt="park snacks" loading="lazy" style="object-position: center bottom;"></div>
+        <div class="photo-frame filled"><img src="disney-3.png" alt="Jasmine & Aladdin" loading="lazy" style="object-position: center 30%;"></div>
+      </div>
+      <div class="note-bubble" style="margin-top: 18px;">soaked, but smiling all day ♡</div>
+    </div>
+
+    <!-- Page 9: Chapter 6 - Lake Kawaguchi -->
+    <div class="page" data-page="9">
+      <span class="page-number">page 8</span>
+      <div class="chapter-header">
+        <div class="chapter-number">06</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🏔️</span>Lake Kawaguchi</div>
+          <div class="chapter-subtitle">our first day by the lake ~</div>
+        </div>
+      </div>
+      <div class="layout-three-photos">
+        <div class="photo-frame filled"><img src="fuji-scooter.png" alt="e-scooter around town" loading="lazy"></div>
+        <div class="photo-frame filled"><img src="kawaguchi-tennis.png" alt="tennis with Fuji in view" loading="lazy"></div>
+        <div class="photo-frame filled"><img src="sukiyaki.png" alt="sukiyaki at home" loading="lazy"></div>
+      </div>
+      <div class="text-content" style="margin-top: 16px;">
+        <h3>Day one by the lake</h3>
+        <p>We rented <span class="highlight">e-scooters</span> to roam around the little town and take in the scenery, then booked a <span class="highlight">private tennis court</span> — and somehow you could see <span class="highlight">Mt. Fuji</span> right from the court! We were sure the clouds would block it... but there it was 🗻</p>
+        <p>For dinner we hit the supermarket together, brought everything back, and cooked <span class="highlight">sukiyaki</span> <span class="translation-note">Japanese hot pot with thinly sliced beef dipped in raw egg</span> as a group ♡</p>
+      </div>
+    </div>
+
+    <!-- Page 10: Kawaguchi continued -->
+    <div class="page" data-page="10">
+      <span class="page-number">page 9</span>
+      <div class="chapter-header">
+        <div class="chapter-number">06</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🗻</span>Mt. Fuji moment</div>
+          <div class="chapter-subtitle">the sky cleared up ~</div>
+        </div>
+      </div>
+      <div class="text-content" style="margin-bottom: 16px;">
+        <h3>Roller coaster + a Fuji surprise</h3>
+        <p>The next two days were pretty rainy, but we still made it out to a few spots. The highlight was hitting an amusement park and riding one of its <span class="highlight">four roller coasters</span> — so tall, so long, totally worth queuing in the wet for!</p>
+        <p>On our last day leaving the town, the sky finally <span class="highlight">cleared up</span> — and there it was, <span class="highlight">Mt. Fuji</span> in full view 🗻 Left feeling like nothing was missing.</p>
+      </div>
+      <div class="layout-three-photos">
+        <div class="photo-frame filled"><img src="fuji-rain.jpeg" alt="rainy view" loading="lazy"></div>
+        <div class="photo-frame filled"><img src="fuji-rollercoaster.png" alt="roller coaster" loading="lazy"></div>
+        <div class="photo-frame filled"><img src="fuji-mountain.png" alt="Mt. Fuji clearing up" loading="lazy"></div>
+      </div>
+      <div class="sticker-row">
+        <span class="sticker filled">amusement park</span>
+        <span class="sticker">roller coasters 🎢</span>
+        <span class="sticker filled">Mt. Fuji</span>
+      </div>
+    </div>
+
+    <!-- Page 11: Chapter 7 - Food & Drinks -->
+    <div class="page" data-page="11">
+      <span class="page-number">page 10</span>
+      <div class="chapter-header">
+        <div class="chapter-number">07</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🍻</span>Food & drinks</div>
+          <div class="chapter-subtitle">yakiniku nights ~</div>
+        </div>
+      </div>
+      <div class="layout-photo-text">
+        <div>
+          <div class="photo-frame filled" style="aspect-ratio: 4 / 3; margin-bottom: 10px;">
+            <img src="food-1.png" alt="yakiniku platter" loading="lazy" style="object-position: center bottom;">
+          </div>
+          <div class="layout-two-photos">
+            <div class="photo-frame filled"><img src="food-2.png" alt="sake" loading="lazy"></div>
+            <div class="photo-frame filled"><img src="food-3.png" alt="cheers!" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="text-content">
+          <h3>Nights with friends</h3>
+          <p>You can't go to Japan and not eat <span class="highlight">yakiniku</span> <span class="translation-note">Japanese-style grilled beef you cook yourself at the table</span>!</p>
+          <p>Add a drink, and we're suddenly talking about everything — the day, old memories, future plans.</p>
+          <div class="note-bubble">cheers! to this trip ♡</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 12: Chapter 8 - Going home -->
+    <div class="page" data-page="12">
+      <span class="page-number">page 11</span>
+      <div class="chapter-header">
+        <div class="chapter-number">08</div>
+        <div>
+          <div class="chapter-title"><span class="chapter-emoji">🎫</span>Heading home</div>
+          <div class="chapter-subtitle">staff ticket flight ~</div>
+        </div>
+      </div>
+      <div class="text-content">
+        <h3>Flying back on a staff ticket</h3>
+        <p>The way home was a little special — I flew back on a <span class="highlight">staff ticket</span> <span class="translation-note">a special discounted ticket through an airline connection</span>. The check-in was different and I was a bit anxious, but I felt really grateful when I finally got on the plane.</p>
+      </div>
+
+      <div class="ticket">
+        <div class="ticket-header">
+          <div class="ticket-title">✈ Boarding Pass</div>
+          <div class="ticket-stamp">STAFF</div>
+        </div>
+        <div class="layout-three-photos">
+          <div class="photo-frame filled" style="aspect-ratio: 1 / 1;">
+            <img src="home-1.JPG" alt="boarding pass" loading="lazy">
+          </div>
+          <div class="photo-frame filled" style="aspect-ratio: 1 / 1;">
+            <img src="home-2.png" alt="window view" loading="lazy">
+          </div>
+          <div class="photo-frame filled" style="aspect-ratio: 1 / 1;">
+            <img src="home-3.png" alt="last moments" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 13: Closing -->
+    <div class="page" data-page="13">
+      <span class="page-number">the end ♡</span>
+      <div class="closing-content">
+        <div class="thank-you">Thank you<br>for listening ♡</div>
+        <div class="heart-line">✿ ♡ ✿ ♡ ✿</div>
+        <p class="closing-note">
+          And that's my little Japan trip!<br>
+          Thanks for taking the time to listen through it ~<br>
+          I hope it made you smile a little bit too ☺
+        </p>
+        <div class="cover-sticker">end of diary ♡</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation bar -->
+  <div class="nav-bar">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous page">←</button>
+    <div class="page-indicator">
+      <span class="current" id="currentPage">1</span>
+      <span class="divider">/</span>
+      <span class="total" id="totalPages">13</span>
+    </div>
+    <button class="nav-btn" id="nextBtn" aria-label="Next page">→</button>
+  </div>
+
+  <!-- Dots indicator -->
+  <div class="dots-indicator" id="dotsIndicator"></div>
+
+</div>
+
+<div class="swipe-hint" id="swipeHint">← swipe or use arrow keys to flip pages →</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const currentPageEl = document.getElementById('currentPage');
+  const totalPagesEl = document.getElementById('totalPages');
+  const dotsContainer = document.getElementById('dotsIndicator');
+  const swipeHint = document.getElementById('swipeHint');
+  const totalPages = pages.length;
+  let currentPage = 1;
+
+  totalPagesEl.textContent = totalPages;
+
+  // Build dots indicator
+  for (let i = 1; i <= totalPages; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 1 ? ' active' : '');
+    dot.addEventListener('click', () => goToPage(i));
+    dotsContainer.appendChild(dot);
+  }
+  const dots = document.querySelectorAll('.dot');
+
+  function updateNav() {
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    currentPageEl.textContent = currentPage;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i + 1 === currentPage);
+    });
+  }
+
+  function goToPage(pageNum) {
+    if (pageNum < 1 || pageNum > totalPages || pageNum === currentPage) return;
+    const direction = pageNum > currentPage ? 'forward' : 'backward';
+    const oldPage = pages[currentPage - 1];
+    const newPage = pages[pageNum - 1];
+
+    if (direction === 'forward') {
+      oldPage.classList.remove('active');
+      oldPage.classList.add('exit-left');
+    } else {
+      oldPage.classList.remove('active');
+      oldPage.style.transform = 'translateX(60px) scale(0.96)';
+      oldPage.style.opacity = '0';
+    }
+
+    setTimeout(() => {
+      pages.forEach(p => {
+        p.classList.remove('active', 'exit-left');
+        p.style.transform = '';
+        p.style.opacity = '';
+      });
+      newPage.classList.add('active');
+      newPage.scrollTop = 0;
+    }, 50);
+
+    currentPage = pageNum;
+    updateNav();
+  }
+
+  prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+  nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') goToPage(currentPage - 1);
+    if (e.key === 'ArrowRight') goToPage(currentPage + 1);
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  });
+  document.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const touchEndY = e.changedTouches[0].screenY;
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+    // Only treat as horizontal swipe if x movement is dominant
+    if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX > 0) goToPage(currentPage + 1);
+      else goToPage(currentPage - 1);
+    }
+  });
+
+  // Show swipe hint briefly
+  setTimeout(() => {
+    swipeHint.classList.add('show');
+    setTimeout(() => swipeHint.classList.remove('show'), 3500);
+  }, 1000);
+
+  updateNav();
+</script>
+
+</body>
+</html>
